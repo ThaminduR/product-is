@@ -343,6 +343,8 @@
             <class name="org.wso2.identity.integration.test.rest.api.server.flow.execution.v1.DeviceRegistrationFlowExecutionTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.device.management.v1.DeviceManagementSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.device.management.v1.DeviceManagementFailureTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.user.device.v1.UserMeDeviceSuccessTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.user.device.v1.UserMeDeviceFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v1.UserSharingSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v1.UserSharingFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v2.UserSharingSuccessTest"/>
