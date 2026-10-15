@@ -81,6 +81,7 @@
                 org.wso2.carbon.identity.api.server.flow.execution.v1.FlowApi,
                 org.wso2.carbon.identity.api.server.device.mgt.v1.DevicesApi,
                 org.wso2.carbon.identity.api.server.policy.v1.PoliciesApi,
+                org.wso2.carbon.identity.api.server.device.policy.v1.DevicePoliciesApi,
                 org.wso2.carbon.identity.rest.api.server.workflow.v1.WorkflowsApi,
                 org.wso2.carbon.identity.rest.api.server.workflow.v1.WorkflowAssociationsApi,
                 org.wso2.carbon.identity.rest.api.server.workflow.v1.WorkflowInstancesApi,
