@@ -29,6 +29,7 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.isOneOf;
 
 /**
  * Success path tests for the Device Policy metadata REST API.
@@ -84,14 +85,13 @@ public class DevicePolicyMetadataSuccessTest extends DevicePolicyMetadataTestBas
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("field.name", hasItems(FIELD_PLATFORM, FIELD_ANDROID_OS_VERSION, FIELD_IS_ROOTED,
-                        FIELD_IOS_OS_VERSION, FIELD_JAILBREAK));
+                        FIELD_IOS_OS_VERSION, FIELD_JAILBREAK))
+                .body("value.inputType", everyItem(isOneOf("input", "options")))
+                .body("value.valueType", everyItem(isOneOf("string", "number", "boolean", "date")));
     }
 
     private Response getMetadata(String platform) {
 
-        // The response is not validated against the API definition: the definition declares the value inputType and
-        // valueType enums in lower case (e.g. "options", "string") while the API returns the enum constant names
-        // (e.g. "OPTIONS", "STRING").
-        return getResponseOfGetNoFilter(platform == null ? METADATA_PATH : METADATA_PATH + "?platform=" + platform);
+        return getResponseOfGet(platform == null ? METADATA_PATH : METADATA_PATH + "?platform=" + platform);
     }
 }
