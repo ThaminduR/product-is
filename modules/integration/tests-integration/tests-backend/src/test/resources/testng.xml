@@ -337,8 +337,12 @@
             <class name="org.wso2.identity.integration.test.rest.api.server.rules.metadata.v1.RulesMetadataFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.policy.management.v1.PolicyManagementSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.policy.management.v1.PolicyManagementFailureTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.device.policy.v1.DevicePolicyMetadataSuccessTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.device.policy.v1.DevicePolicyMetadataFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.flow.management.v1.DeviceRegistrationFlowManagementTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.flow.execution.v1.DeviceRegistrationFlowExecutionTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.device.management.v1.DeviceManagementSuccessTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.device.management.v1.DeviceManagementFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v1.UserSharingSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v1.UserSharingFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v2.UserSharingSuccessTest"/>
