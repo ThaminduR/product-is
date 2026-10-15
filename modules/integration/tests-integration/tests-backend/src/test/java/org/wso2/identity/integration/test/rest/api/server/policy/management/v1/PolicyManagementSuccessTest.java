@@ -96,14 +96,7 @@ public class PolicyManagementSuccessTest extends PolicyManagementTestBase {
                 .body("name", equalTo(TEST_POLICY_NAME))
                 .body("resources", hasSize(1))
                 .body("resources[0].target", equalTo(TARGET_IOS))
-                .body("resources[0].resourceType", equalTo(RESOURCE_TYPE_RULE))
-                .body("resources[0].rule.rules", hasSize(2))
-                .body("resources[0].rule.rules[0].expressions", hasSize(2))
-                .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_PLATFORM + "' }"
-                        + ".operator", equalTo(OPERATOR_EQUALS))
-                .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_PLATFORM + "' }"
-                        + ".value.value", equalTo(TARGET_IOS))
-                .body("resources[0].rule.rules[1].expressions[0].field", equalTo(FIELD_JAILBREAK));
+                .body("resources[0].resourceType", equalTo(RESOURCE_TYPE_RULE));
 
         testPolicyId = response.getBody().jsonPath().getString("id");
         String location = response.getHeader("Location");
@@ -126,8 +119,14 @@ public class PolicyManagementSuccessTest extends PolicyManagementTestBase {
                 .body("resources[0].target", equalTo(TARGET_IOS))
                 .body("resources[0].resourceType", equalTo(RESOURCE_TYPE_RULE))
                 .body("resources[0].rule.rules", hasSize(2))
+                .body("resources[0].rule.rules[0].expressions", hasSize(2))
+                .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_PLATFORM + "' }"
+                        + ".operator", equalTo(OPERATOR_EQUALS))
+                .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_PLATFORM + "' }"
+                        + ".value.value", equalTo(TARGET_IOS))
                 .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_IOS_OS_VERSION
-                        + "' }.operator", equalTo(OPERATOR_GREATER_THAN));
+                        + "' }.operator", equalTo(OPERATOR_GREATER_THAN))
+                .body("resources[0].rule.rules[1].expressions[0].field", equalTo(FIELD_JAILBREAK));
     }
 
     @Test(dependsOnMethods = "testGetPolicyById")
@@ -148,11 +147,7 @@ public class PolicyManagementSuccessTest extends PolicyManagementTestBase {
                 // Policy name is immutable, so it must be retained.
                 .body("name", equalTo(TEST_POLICY_NAME))
                 .body("resources", hasSize(1))
-                .body("resources[0].target", equalTo(TARGET_ANDROID))
-                .body("resources[0].rule.rules", hasSize(1))
-                .body("resources[0].rule.rules[0].expressions", hasSize(3))
-                .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_PLATFORM + "' }"
-                        + ".value.value", equalTo(TARGET_ANDROID));
+                .body("resources[0].target", equalTo(TARGET_ANDROID));
 
         // Verify the update is persisted.
         getResponseOfGet(POLICY_MANAGEMENT_API_BASE_PATH + "/" + testPolicyId)
@@ -161,7 +156,11 @@ public class PolicyManagementSuccessTest extends PolicyManagementTestBase {
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
                 .body("resources", hasSize(1))
-                .body("resources[0].target", equalTo(TARGET_ANDROID));
+                .body("resources[0].target", equalTo(TARGET_ANDROID))
+                .body("resources[0].rule.rules", hasSize(1))
+                .body("resources[0].rule.rules[0].expressions", hasSize(3))
+                .body("resources[0].rule.rules[0].expressions.find { it.field == '" + FIELD_PLATFORM + "' }"
+                        + ".value.value", equalTo(TARGET_ANDROID));
     }
 
     @Test(dependsOnMethods = "testUpdatePolicy")

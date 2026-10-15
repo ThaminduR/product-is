@@ -198,7 +198,7 @@ public class PolicyManagementFailureTest extends PolicyManagementTestBase {
 
         PolicyRequest request = buildIosPolicyRequest(null);
 
-        getResponseOfPost(POLICY_MANAGEMENT_API_BASE_PATH, toJSONString(request))
+        getResponseOfPostNoFilter(POLICY_MANAGEMENT_API_BASE_PATH, toJSONString(request))
                 .then()
                 .log().ifValidationFails()
                 .assertThat()
@@ -216,7 +216,7 @@ public class PolicyManagementFailureTest extends PolicyManagementTestBase {
                 .name(INVALID_RULE_POLICY_NAME)
                 .addResourceItem(resource);
 
-        getResponseOfPost(POLICY_MANAGEMENT_API_BASE_PATH, toJSONString(request))
+        getResponseOfPostNoFilter(POLICY_MANAGEMENT_API_BASE_PATH, toJSONString(request))
                 .then()
                 .log().ifValidationFails()
                 .assertThat()
@@ -226,7 +226,7 @@ public class PolicyManagementFailureTest extends PolicyManagementTestBase {
     @Test
     public void testListPoliciesWithInvalidLimit() {
 
-        getResponseOfGet(POLICY_MANAGEMENT_API_BASE_PATH + "?limit=0")
+        getResponseOfGetNoFilter(POLICY_MANAGEMENT_API_BASE_PATH + "?limit=0")
                 .then()
                 .log().ifValidationFails()
                 .assertThat()
