@@ -101,6 +101,7 @@ import static org.wso2.identity.integration.test.restclients.RestBaseClient.USER
 import static org.wso2.identity.integration.test.saml.SAMLFederationDynamicQueryParametersTestCase.INBOUND_AUTH_TYPE;
 import static org.wso2.identity.integration.test.utils.OAuth2Constant.CALLBACK_URL;
 import static org.wso2.identity.integration.test.utils.OAuth2Constant.OAUTH_APPLICATION_NAME;
+import org.wso2.identity.integration.test.utils.TestPorts;
 
 /**
  * OAuth2 test integration abstraction.
@@ -126,7 +127,7 @@ public class OAuth2ServiceAbstractIntegrationTest extends ISIntegrationTest {
 	protected static final String AMPERSAND = "&";
 	protected static final String QUESTION_MARK = "?";
 	protected static final String EQUAL = "=";
-	private final static int TOMCAT_PORT = 8490;
+	private final static int TOMCAT_PORT = TestPorts.TOMCAT;
 	private static final boolean REQUIRES_AUTHORIZATION = true;
 	protected ApplicationManagementServiceClient appMgtclient;
 	protected OauthAdminClient adminClient;
