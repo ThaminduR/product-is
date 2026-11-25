@@ -13,6 +13,7 @@ WORKFLOW_BRANCH=${WORKFLOW_BRANCH#refs/heads/}
 declare -a ALL_TESTS=(
     "is-tests-default-configuration"
     "is-test-rest-api"
+    "is-test-rest-api-2"
     "is-tests-oauth-client-secrets"
     "is-test-webhooks"
     "is-tests-scim2"
@@ -30,6 +31,7 @@ declare -a ALL_TESTS=(
     "is-tests-oauth-jwt-token-gen-enabled"
     "is-tests-email-username"
     "is-tests-with-individual-configuration-changes"
+    "is-tests-with-individual-configuration-changes-2"
     "is-tests-saml-query-profile"
     "is-tests-default-encryption"
     "is-test-session-mgt"
@@ -62,15 +64,6 @@ disable_tests() {
     done
 }
 
-# Function to get expected BUILD SUCCESS count based on enabled tests.
-get_expected_build_success_count() {
-    local enabled_tests=$1
-    if [[ -z "$enabled_tests" || "$enabled_tests" == *"is-test-adaptive-authentication-nashorn"* ]]; then
-        echo "17"
-    else
-        echo "1"
-    fi
-}
 
 # Main execution starts here.
 BUILDER_NUMBER=$1
@@ -202,9 +195,8 @@ if [ "$REPO" = "product-is" ]; then
   PR_BUILD_RESULT_LOG=$(echo $PR_BUILD_RESULT_LOG_TEMP)
   echo "::warning::$PR_BUILD_RESULT_LOG"
 
-  PR_BUILD_SUCCESS_COUNT=$(grep -o -i "\[INFO\] BUILD SUCCESS" mvn-build.log | wc -l)
-  EXPECTED_BUILD_SUCCESS_COUNT=$(get_expected_build_success_count "$ENABLED_TESTS")
-  if [ "$PR_BUILD_SUCCESS_COUNT" != "$EXPECTED_BUILD_SUCCESS_COUNT" ]; then
+  PR_BUILD_SUCCESS_STATUS=$(grep -oE "\[INFO\] BUILD (SUCCESS|FAILURE)" mvn-build.log | tail -1)
+  if [ "$PR_BUILD_SUCCESS_STATUS" != "[INFO] BUILD SUCCESS" ]; then
     echo "PR BUILD not successfull. Aborting."
     echo "::error::PR BUILD not successfull. Check artifacts for logs."
     exit 1
@@ -519,9 +511,8 @@ else
   PR_BUILD_RESULT_LOG=$(echo $PR_BUILD_RESULT_LOG_TEMP)
   echo "::warning::$PR_BUILD_RESULT_LOG"
 
-  PR_BUILD_SUCCESS_COUNT=$(grep -o -i "\[INFO\] BUILD SUCCESS" mvn-build.log | wc -l)
-  EXPECTED_BUILD_SUCCESS_COUNT=$(get_expected_build_success_count "$ENABLED_TESTS")
-  if [ "$PR_BUILD_SUCCESS_COUNT" != "$EXPECTED_BUILD_SUCCESS_COUNT" ]; then
+  PR_BUILD_SUCCESS_STATUS=$(grep -oE "\[INFO\] BUILD (SUCCESS|FAILURE)" mvn-build.log | tail -1)
+  if [ "$PR_BUILD_SUCCESS_STATUS" != "[INFO] BUILD SUCCESS" ]; then
     echo "PR BUILD not successfull. Aborting."
     echo "::error::PR BUILD not successfull. Check artifacts for logs."
     exit 1

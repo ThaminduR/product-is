@@ -9,6 +9,7 @@ WORKFLOW_BRANCH=${WORKFLOW_BRANCH#refs/heads/}
 declare -a ALL_TESTS=(
     "is-tests-default-configuration"
     "is-test-rest-api"
+    "is-test-rest-api-2"
     "is-tests-oauth-client-secrets"
     "is-test-webhooks"
     "is-tests-scim2"
@@ -26,6 +27,7 @@ declare -a ALL_TESTS=(
     "is-tests-oauth-jwt-token-gen-enabled"
     "is-tests-email-username"
     "is-tests-with-individual-configuration-changes"
+    "is-tests-with-individual-configuration-changes-2"
     "is-tests-saml-query-profile"
     "is-tests-default-encryption"
     "is-test-session-mgt"
@@ -177,8 +179,8 @@ IT_BUILD_RESULT_LOG_TEMP=$(echo "$IT_BUILD_FINAL_RESULT" | sed 's/$/%0A/')
 IT_BUILD_RESULT_LOG=$(echo $IT_BUILD_RESULT_LOG_TEMP)
 echo "::warning::$IT_BUILD_RESULT_LOG"
 
-IT_BUILD_SUCCESS_COUNT=$(grep -o -i "\[INFO\] BUILD SUCCESS" mvn-build.log | wc -l)
-if [ "$IT_BUILD_SUCCESS_COUNT" -lt 1 ]; then
+IT_BUILD_SUCCESS_STATUS=$(grep -oE "\[INFO\] BUILD (SUCCESS|FAILURE)" mvn-build.log | tail -1)
+if [ "$IT_BUILD_SUCCESS_STATUS" != "[INFO] BUILD SUCCESS" ]; then
     echo "Integration tests not successful. Aborting."
     echo "::error::Integration tests failed. Check artifacts for logs."
     exit 1
